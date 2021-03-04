@@ -23,18 +23,22 @@ public class GoogleSignInService {
         .Builder()
         .requestEmail()
         .requestId()
-      //  .requestIdToken(BuildConfig.ClIENT_ID)
+        //  .requestIdToken(BuildConfig.CLIENT_ID)
         .build();
 
     client = GoogleSignIn.getClient(context, options);
   }
 
-  public GoogleSignInAccount getAccount() {
-    return account;
-  }
-
   public static void setContext(Application context) {
     GoogleSignInService.context = context;
+  }
+
+  public static GoogleSignInService getInstance() {
+    return InstanceHolder.INSTANCE;
+  }
+
+  public GoogleSignInAccount getAccount() {
+    return account;
   }
 
   public Task<GoogleSignInAccount> refresh() {
@@ -65,12 +69,13 @@ public class GoogleSignInService {
   }
 
   public Task<Void> signOut() {
-    return  client
+    return client
         .signOut()
         .addOnCompleteListener((ignore) -> account = null);
   }
 
   private static class InstanceHolder {
+
     private static final GoogleSignInService INSTANCE = new GoogleSignInService();
   }
 
