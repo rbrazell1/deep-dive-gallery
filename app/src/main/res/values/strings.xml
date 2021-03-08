@@ -16,4 +16,5 @@
     -->
   <string name="hello_world">Hello Square World!</string>
   <string name="login_fail_message">Login Failed</string>
+  <string name="sign_out">Sign Out</string>
 </resources>
