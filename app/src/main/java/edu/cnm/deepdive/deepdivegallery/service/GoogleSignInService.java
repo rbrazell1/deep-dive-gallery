@@ -23,6 +23,7 @@ public class GoogleSignInService {
   private GoogleSignInService() {
     GoogleSignInOptions options = new GoogleSignInOptions
         .Builder()
+        .requestProfile()
         .requestEmail()
         .requestId()
         .requestIdToken(BuildConfig.CLIENT_ID)
