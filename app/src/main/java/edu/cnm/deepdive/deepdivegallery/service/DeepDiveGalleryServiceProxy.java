@@ -20,6 +20,10 @@ public interface DeepDiveGalleryServiceProxy {
   Single<User> getProfile(@Header("Authorization")
       String bearerToken);
 
+  static DeepDiveGalleryServiceProxy getInstance() {
+    return getInstance();
+  }
+
   class InstanceHolder {
 
     private static final DeepDiveGalleryServiceProxy INSTANCE;
