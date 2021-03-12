@@ -21,7 +21,7 @@ public interface DeepDiveGalleryServiceProxy {
       String bearerToken);
 
   static DeepDiveGalleryServiceProxy getInstance() {
-    return getInstance();
+    return InstanceHolder.INSTANCE;
   }
 
   class InstanceHolder {
