@@ -3,9 +3,12 @@ package edu.cnm.deepdive.deepdivegallery.controller;
 import android.app.Dialog;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -15,7 +18,7 @@ import edu.cnm.deepdive.deepdivegallery.R;
 import edu.cnm.deepdive.deepdivegallery.databinding.FragmentUploadPropertiesBinding;
 import edu.cnm.deepdive.deepdivegallery.viewmodel.MainViewModel;
 
-public class UploadPropertiesFragment extends DialogFragment {
+public class UploadPropertiesFragment extends DialogFragment implements TextWatcher {
 
   private FragmentUploadPropertiesBinding binding;
   private Uri uri;
@@ -42,7 +45,7 @@ public class UploadPropertiesFragment extends DialogFragment {
         .setNeutralButton(android.R.string.cancel, (dlg, which) -> {/* Does Nothing, no need */})
         .setPositiveButton(android.R.string.ok, (dlg, which) -> {/* TODO Start upload process */})
         .create();
-    // TODO Attach text listener to validate fields
+    dialog.setOnShowListener((dlg) -> checkSubmitConditions());
     return dialog;
   }
 
@@ -61,5 +64,27 @@ public class UploadPropertiesFragment extends DialogFragment {
         .get()
         .load(uri)
         .into(binding.image);
+    binding.title.addTextChangedListener(this);
+  }
+
+  @Override
+  public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+  }
+
+  @Override
+  public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+  }
+
+  @Override
+  public void afterTextChanged(Editable s) {
+    checkSubmitConditions();
+
+  }
+
+  private void checkSubmitConditions() {
+    Button posititve = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+    posititve.setEnabled(!binding.title.getText().toString().trim().isEmpty());
   }
 }

@@ -33,7 +33,8 @@ public interface DeepDiveGalleryServiceProxy {
   @Multipart
   @POST("images")
   Single<Image> post(@Header("Authorization") String bearerToken,
-      @Part MultipartBody.Part file);
+      @Part MultipartBody.Part file,
+      @Part("title") RequestBody title);
 
   @Multipart
   @POST("images")

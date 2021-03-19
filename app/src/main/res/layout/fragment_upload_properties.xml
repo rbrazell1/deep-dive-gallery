@@ -21,6 +21,7 @@
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintWidth_percent=".6"
     android:layout_margin="8dp"
     tools:ignore="ContentDescription"/>
 
