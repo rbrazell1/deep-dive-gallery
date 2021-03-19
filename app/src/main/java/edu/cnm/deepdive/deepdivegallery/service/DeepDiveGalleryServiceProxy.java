@@ -13,12 +13,18 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
 
 public interface DeepDiveGalleryServiceProxy {
 
   @GET("users/me")
   Single<User> getProfile(@Header("Authorization")
       String bearerToken);
+
+
+  @Multipart
+  @POST("images")
 
   static DeepDiveGalleryServiceProxy getInstance() {
     return InstanceHolder.INSTANCE;
