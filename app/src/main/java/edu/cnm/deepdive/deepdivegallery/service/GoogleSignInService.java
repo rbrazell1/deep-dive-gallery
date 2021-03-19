@@ -45,6 +45,13 @@ public class GoogleSignInService {
     return account;
   }
 
+  private void setAccount(GoogleSignInAccount account) {
+    this.account = account;
+    if (account != null) {
+      Log.d(getClass().getSimpleName() + " Bearer Token: ", account.getIdToken());
+    }
+  }
+
   public Single<GoogleSignInAccount> refresh() {
     return Single.create((emitter) ->
         client.silentSignIn()
@@ -79,13 +86,6 @@ public class GoogleSignInService {
     return client
         .signOut()
         .addOnCompleteListener((ignore) -> setAccount(null));
-  }
-
-  private void setAccount(GoogleSignInAccount account) {
-    this.account = account;
-    if (account != null) {
-      Log.d(getClass().getSimpleName() + " Bearer Token: ", account.getIdToken());
-    }
   }
 
   private void onSuccess(GoogleSignInAccount account) {

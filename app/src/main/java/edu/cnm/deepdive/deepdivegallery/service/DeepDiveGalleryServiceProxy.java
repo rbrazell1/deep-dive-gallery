@@ -3,9 +3,12 @@ package edu.cnm.deepdive.deepdivegallery.service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import edu.cnm.deepdive.deepdivegallery.BuildConfig;
+import edu.cnm.deepdive.deepdivegallery.model.Image;
 import edu.cnm.deepdive.deepdivegallery.model.User;
 import io.reactivex.Single;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 import retrofit2.Retrofit;
@@ -15,20 +18,29 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public interface DeepDiveGalleryServiceProxy {
+
+  static DeepDiveGalleryServiceProxy getInstance() {
+    return InstanceHolder.INSTANCE;
+  }
 
   @GET("users/me")
   Single<User> getProfile(@Header("Authorization")
       String bearerToken);
 
+  @Multipart
+  @POST("images")
+  Single<Image> post(@Header("Authorization") String bearerToken,
+      @Part MultipartBody.Part file);
 
   @Multipart
   @POST("images")
-
-  static DeepDiveGalleryServiceProxy getInstance() {
-    return InstanceHolder.INSTANCE;
-  }
+  Single<Image> post(@Header("Authorization") String bearerToken,
+      @Part MultipartBody.Part file,
+      @Part("title") RequestBody title,
+      @Part("description") RequestBody description);
 
   class InstanceHolder {
 
