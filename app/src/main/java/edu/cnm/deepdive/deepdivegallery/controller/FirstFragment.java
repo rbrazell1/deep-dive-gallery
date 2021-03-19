@@ -9,7 +9,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+import edu.cnm.deepdive.deepdivegallery.NavGraphDirections;
+import edu.cnm.deepdive.deepdivegallery.NavGraphDirections.OpenUploadProperties;
 import edu.cnm.deepdive.deepdivegallery.R;
 import edu.cnm.deepdive.deepdivegallery.databinding.FragmentFirstBinding;
 
@@ -38,7 +41,8 @@ public class FirstFragment extends Fragment {
   public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
     if (requestCode == PICK_IMAGE_REQUEST && requestCode == Activity.RESULT_OK && data != null) {
-      //TODO open dialog fragment
+      OpenUploadProperties action = NavGraphDirections.openUploadProperties(data.getData());
+      Navigation.findNavController(binding.getRoot()).navigate(action);
     }
   }
 

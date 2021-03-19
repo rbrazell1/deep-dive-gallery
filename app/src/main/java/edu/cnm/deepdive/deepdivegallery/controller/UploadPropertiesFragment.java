@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+import com.squareup.picasso.Picasso;
 import edu.cnm.deepdive.deepdivegallery.R;
 import edu.cnm.deepdive.deepdivegallery.databinding.FragmentUploadPropertiesBinding;
 import edu.cnm.deepdive.deepdivegallery.viewmodel.MainViewModel;
@@ -25,7 +26,7 @@ public class UploadPropertiesFragment extends DialogFragment {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    // TODO get uri from parameters
+    uri = UploadPropertiesFragmentArgs.fromBundle(getArguments()).getContentUri();
   }
 
   @NonNull
@@ -34,7 +35,7 @@ public class UploadPropertiesFragment extends DialogFragment {
       @Nullable Bundle savedInstanceState) {
     binding = FragmentUploadPropertiesBinding.inflate(
         LayoutInflater.from(getContext()), null, false);
-    dialog = new androidx.appcompat.app.AlertDialog.Builder(getContext())
+    dialog = new AlertDialog.Builder(getContext())
         .setIcon(R.drawable.ic_upload_24)
         .setTitle("Upload Properties")
         .setView(binding.getRoot())
@@ -49,12 +50,16 @@ public class UploadPropertiesFragment extends DialogFragment {
   public View onCreateView(
       @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     return binding.getRoot();
+
   }
 
   @Override
   public void onViewCreated(
       @NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    // TODO setup viewmodel and observe as necessary
+    Picasso
+        .get()
+        .load(uri)
+        .into(binding.image);
   }
 }
