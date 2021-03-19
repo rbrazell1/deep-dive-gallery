@@ -12,6 +12,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.fragment.app.DialogFragment;
 import com.squareup.picasso.Picasso;
 import edu.cnm.deepdive.deepdivegallery.R;
@@ -38,9 +39,9 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
       @Nullable Bundle savedInstanceState) {
     binding = FragmentUploadPropertiesBinding.inflate(
         LayoutInflater.from(getContext()), null, false);
-    dialog = new AlertDialog.Builder(getContext())
+    dialog = new Builder(getContext())
         .setIcon(R.drawable.ic_upload_24)
-        .setTitle("Upload Properties")
+        .setTitle(R.string.create_dialog_title)
         .setView(binding.getRoot())
         .setNeutralButton(android.R.string.cancel, (dlg, which) -> {/* Does Nothing, no need */})
         .setPositiveButton(android.R.string.ok, (dlg, which) -> {/* TODO Start upload process */})

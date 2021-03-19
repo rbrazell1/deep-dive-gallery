@@ -50,7 +50,7 @@ public class FirstFragment extends Fragment {
     Intent intent = new Intent();
     intent.setType("image/*");
     intent.setAction(Intent.ACTION_GET_CONTENT);
-    startActivityForResult(Intent.createChooser(intent, "Choose Image to Uplaod"),
+    startActivityForResult(Intent.createChooser(intent, getString(R.string.pick_image)),
         PICK_IMAGE_REQUEST);
   }
 
