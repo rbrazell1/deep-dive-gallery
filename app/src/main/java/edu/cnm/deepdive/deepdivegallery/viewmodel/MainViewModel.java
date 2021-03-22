@@ -1,31 +1,40 @@
 package edu.cnm.deepdive.deepdivegallery.viewmodel;
 
 import android.app.Application;
+import android.net.Uri;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.Lifecycle.Event;
+import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.OnLifecycleEvent;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import edu.cnm.deepdive.deepdivegallery.model.User;
+import edu.cnm.deepdive.deepdivegallery.service.ImageRepository;
 import edu.cnm.deepdive.deepdivegallery.service.UserRepository;
-import org.jetbrains.annotations.NotNull;
+import io.reactivex.disposables.CompositeDisposable;
 
-public class MainViewModel extends AndroidViewModel {
+public class MainViewModel extends AndroidViewModel implements LifecycleObserver {
 
   private final UserRepository userRepository;
   private final MutableLiveData<GoogleSignInAccount> account;
   private final MutableLiveData<User> user;
   private final MutableLiveData<Throwable> throwable;
+  private final CompositeDisposable pending;
+  private final ImageRepository imageRepository;
 
 
   public MainViewModel(
-      @NonNull @NotNull Application application) {
+      @NonNull Application application) {
     super(application);
     userRepository = new UserRepository(application);
     account = new MutableLiveData<>(userRepository.getAccount());
     user = new MutableLiveData<>();
     throwable = new MutableLiveData<>();
-    testRoundTrip();
+    pending = new CompositeDisposable();
+    imageRepository = new ImageRepository(application);
   }
 
   public LiveData<User> getUser() {
@@ -36,12 +45,26 @@ public class MainViewModel extends AndroidViewModel {
     return throwable;
   }
 
-  private void testRoundTrip() {
-    userRepository.getUserProfile()
-        .subscribe(
-            user::postValue,
-            throwable::postValue
-        );
+  public void store(Uri uri, String title, String description) {
+    throwable.setValue(null);
+    pending.add(
+        imageRepository
+            .add(uri, title, description)
+            .subscribe(
+                (image) -> {/* TODO display success*/},
+                (this::postThrowable)
+            )
+    );
+
   }
 
+  @OnLifecycleEvent(Event.ON_STOP)
+  private void clearPending() {
+    pending.clear();
+  }
+
+  private void postThrowable(Throwable throwable) {
+    Log.e(getClass().getName(), throwable.getMessage(), throwable);
+    this.throwable.postValue(throwable);
+  }
 }

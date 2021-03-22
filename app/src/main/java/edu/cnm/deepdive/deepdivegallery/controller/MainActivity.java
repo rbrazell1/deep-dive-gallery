@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
   private void setViewModel() {
     viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+    getLifecycle().addObserver(viewModel);
     viewModel.getThrowable().observe(this, (throwable) -> {
       if (throwable != null) {
         Toast.makeText(this, throwable.getLocalizedMessage(), Toast.LENGTH_LONG).show();

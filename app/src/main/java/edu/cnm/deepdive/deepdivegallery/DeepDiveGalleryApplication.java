@@ -16,5 +16,6 @@ public class DeepDiveGalleryApplication extends Application {
         .loggingEnabled(BuildConfig.DEBUG)
         .build()
     );
+
   }
 }
