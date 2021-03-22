@@ -21,6 +21,8 @@ public class GoogleSignInService {
 
   private GoogleSignInAccount account;
 
+  private static final String BEARER_TOKEN_FORMAT = "Bearer %s";
+
   private GoogleSignInService() {
     GoogleSignInOptions options = new GoogleSignInOptions
         .Builder()
@@ -59,6 +61,11 @@ public class GoogleSignInService {
             .addOnSuccessListener(emitter::onSuccess)
             .addOnFailureListener(emitter::onError)
     );
+  }
+
+  public Single<String> refreshBearerToken() {
+    return refresh()
+        .map((account) -> String.format(BEARER_TOKEN_FORMAT, account.getIdToken()));
   }
 
   public void startSignIn(Activity activity, int requestCode) {
