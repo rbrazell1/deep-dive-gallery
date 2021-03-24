@@ -65,7 +65,7 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
         imageRepository
             .add(uri, title, description)
             .subscribe(
-                (image) -> {/* TODO display success*/},
+                (image) -> loadImageList(),
                 (this::postThrowable)
             )
     );
@@ -73,7 +73,7 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
   }
 
   public void loadImageList() {
-    throwable.setValue(null);
+    throwable.postValue(null);
     pending.add(
         imageRepository
             .getAll()

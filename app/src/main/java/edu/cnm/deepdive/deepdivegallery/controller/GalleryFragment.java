@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 import edu.cnm.deepdive.deepdivegallery.NavGraphDirections;
 import edu.cnm.deepdive.deepdivegallery.NavGraphDirections.OpenUploadProperties;
 import edu.cnm.deepdive.deepdivegallery.R;
@@ -85,6 +86,8 @@ public class GalleryFragment extends Fragment {
             .widthPixels / context
             .getResources()
             .getDimension(R.dimen.gallery_item_width));
+    GridLayoutManager layoutManager = new GridLayoutManager(context, span);
+    binding.galleryRecyclerview.setLayoutManager(layoutManager);
     adapter = new GalleryAdapter(context);
     binding.galleryRecyclerview.setAdapter(adapter);
     binding.addImage.setOnClickListener((c) -> pickImage());
