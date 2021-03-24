@@ -28,6 +28,9 @@ public class Image {
   private String contentType;
 
   @Expose
+  private String href;
+
+  @Expose
   private User contributor;
 
 //  @Expose
@@ -88,6 +91,14 @@ public class Image {
 
   public void setContentType(String contentType) {
     this.contentType = contentType;
+  }
+
+  public String getHref() {
+    return href;
+  }
+
+  public void setHref(String href) {
+    this.href = href;
   }
 
   public User getContributor() {

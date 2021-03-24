@@ -6,6 +6,7 @@ import edu.cnm.deepdive.deepdivegallery.BuildConfig;
 import edu.cnm.deepdive.deepdivegallery.model.Image;
 import edu.cnm.deepdive.deepdivegallery.model.User;
 import io.reactivex.Single;
+import java.util.List;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -42,6 +43,9 @@ public interface DeepDiveGalleryServiceProxy {
       @Part MultipartBody.Part file,
       @Part("title") RequestBody title,
       @Part("description") RequestBody description);
+
+  @GET("images")
+  Single<List<Image>> getAllImages(@Header("Authorization") String bearerToken);
 
   class InstanceHolder {
 

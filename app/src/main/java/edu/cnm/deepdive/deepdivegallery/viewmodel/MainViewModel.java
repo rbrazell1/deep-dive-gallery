@@ -11,10 +11,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.OnLifecycleEvent;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import edu.cnm.deepdive.deepdivegallery.model.Image;
 import edu.cnm.deepdive.deepdivegallery.model.User;
 import edu.cnm.deepdive.deepdivegallery.service.ImageRepository;
 import edu.cnm.deepdive.deepdivegallery.service.UserRepository;
 import io.reactivex.disposables.CompositeDisposable;
+import java.util.List;
 
 public class MainViewModel extends AndroidViewModel implements LifecycleObserver {
 
@@ -22,9 +24,10 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
   private final MutableLiveData<GoogleSignInAccount> account;
   private final MutableLiveData<User> user;
   private final MutableLiveData<Throwable> throwable;
+  private final MutableLiveData<Image> image;
+  private final MutableLiveData<List<Image>> imageList;
   private final CompositeDisposable pending;
   private final ImageRepository imageRepository;
-
 
   public MainViewModel(
       @NonNull Application application) {
@@ -33,8 +36,11 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
     account = new MutableLiveData<>(userRepository.getAccount());
     user = new MutableLiveData<>();
     throwable = new MutableLiveData<>();
+    image = new MutableLiveData<>();
+    imageList = new MutableLiveData<>();
     pending = new CompositeDisposable();
     imageRepository = new ImageRepository(application);
+    loadImageList();
   }
 
   public LiveData<User> getUser() {
@@ -43,6 +49,14 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
 
   public LiveData<Throwable> getThrowable() {
     return throwable;
+  }
+
+  public LiveData<Image> getImage() {
+    return image;
+  }
+
+  public LiveData<List<Image>> getImageList() {
+    return imageList;
   }
 
   public void store(Uri uri, String title, String description) {
@@ -56,6 +70,18 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
             )
     );
 
+  }
+
+  public void loadImageList() {
+    throwable.setValue(null);
+    pending.add(
+        imageRepository
+            .getAll()
+            .subscribe(
+                imageList::postValue,
+                throwable::postValue
+            )
+    );
   }
 
   @OnLifecycleEvent(Event.ON_STOP)

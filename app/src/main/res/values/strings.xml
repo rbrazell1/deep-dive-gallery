@@ -2,7 +2,7 @@
   <string name="app_name">Deep Dive Gallery</string>
   <string name="action_settings">Settings</string>
 
-  <string name="first_fragment_label">First Fragment</string>
+  <string name="gallery_fragment_label">Gallery Fragment</string>
   <string name="second_fragment_label">Second Fragment</string>
   <string name="next">Next</string>
   <string name="previous">Previous</string>
@@ -20,4 +20,5 @@
   <string name="pick_image">Choose Image to Uplaod</string>
   <string name="title_of_image_hint">Title of Image</string>
   <string name="description_of_image_hint">Description of Image</string>
+  <string name="action_refresh">Refresh</string>
 </resources>

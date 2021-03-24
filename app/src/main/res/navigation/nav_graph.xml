@@ -3,7 +3,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/nav_graph"
-  app:startDestination="@id/FirstFragment">
+  app:startDestination="@id/Gallery_Fragment">
 
   <action
     android:id="@+id/open_upload_properties"
@@ -34,14 +34,14 @@
 
     <action
       android:id="@+id/action_SecondFragment_to_FirstFragment"
-      app:destination="@id/FirstFragment"/>
+      app:destination="@id/Gallery_Fragment"/>
   </fragment>
 
   <fragment
-    android:id="@+id/FirstFragment"
-    android:label="@string/first_fragment_label"
-    android:name="edu.cnm.deepdive.deepdivegallery.controller.FirstFragment"
-    tools:layout="@layout/fragment_first">
+    android:id="@+id/Gallery_Fragment"
+    android:label="@string/gallery_fragment_label"
+    android:name="edu.cnm.deepdive.deepdivegallery.controller.GalleryFragment"
+    tools:layout="@layout/fragment_gallery">
 
     <action
       android:id="@+id/action_FirstFragment_to_SecondFragment"
