@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.deepdivegallery.controller;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,13 +14,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import edu.cnm.deepdive.deepdivegallery.NavGraphDirections;
+import edu.cnm.deepdive.deepdivegallery.NavGraphDirections.OpenUploadProperties;
 import edu.cnm.deepdive.deepdivegallery.R;
 import edu.cnm.deepdive.deepdivegallery.adapter.GalleryAdapter;
 import edu.cnm.deepdive.deepdivegallery.databinding.FragmentGalleryBinding;
 import edu.cnm.deepdive.deepdivegallery.model.Image;
 import edu.cnm.deepdive.deepdivegallery.viewmodel.MainViewModel;
 import java.util.List;
-import org.jetbrains.annotations.NotNull;
 
 
 public class GalleryFragment extends Fragment {
@@ -45,7 +48,29 @@ public class GalleryFragment extends Fragment {
 
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    return super.onOptionsItemSelected(item);
+
+    boolean handled = true;
+
+    //noinspection SwitchStatementWithTooFewBranches
+    switch (item.getItemId()) {
+      case R.id.action_refresh:
+        viewModel.loadImageList();
+        break;
+      default:
+        handled = super.onOptionsItemSelected(item);
+    }
+    return handled;
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+      OpenUploadProperties action = NavGraphDirections.openUploadProperties(data.getData());
+      Navigation
+          .findNavController(binding.getRoot())
+          .navigate(action);
+    }
   }
 
   @Override
