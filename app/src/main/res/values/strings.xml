@@ -21,4 +21,5 @@
   <string name="title_of_image_hint">Title of Image</string>
   <string name="description_of_image_hint">Description of Image</string>
   <string name="action_refresh">Refresh</string>
+  <string name="gallery_title">Title</string>
 </resources>

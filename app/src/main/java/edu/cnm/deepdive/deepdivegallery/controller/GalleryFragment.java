@@ -20,13 +20,14 @@ import edu.cnm.deepdive.deepdivegallery.NavGraphDirections;
 import edu.cnm.deepdive.deepdivegallery.NavGraphDirections.OpenUploadProperties;
 import edu.cnm.deepdive.deepdivegallery.R;
 import edu.cnm.deepdive.deepdivegallery.adapter.GalleryAdapter;
+import edu.cnm.deepdive.deepdivegallery.adapter.GalleryAdapter.OnGalleryClickHelper;
 import edu.cnm.deepdive.deepdivegallery.databinding.FragmentGalleryBinding;
 import edu.cnm.deepdive.deepdivegallery.model.Image;
 import edu.cnm.deepdive.deepdivegallery.viewmodel.MainViewModel;
 import java.util.List;
 
 
-public class GalleryFragment extends Fragment {
+public class GalleryFragment extends Fragment implements OnGalleryClickHelper {
 
   private static final int PICK_IMAGE_REQUEST = 0210;
   private FragmentGalleryBinding binding;
@@ -88,7 +89,7 @@ public class GalleryFragment extends Fragment {
             .getDimension(R.dimen.gallery_item_width));
     GridLayoutManager layoutManager = new GridLayoutManager(context, span);
     binding.galleryRecyclerview.setLayoutManager(layoutManager);
-    adapter = new GalleryAdapter(context);
+    adapter = new GalleryAdapter(context, galleryList);
     binding.galleryRecyclerview.setAdapter(adapter);
     binding.addImage.setOnClickListener((c) -> pickImage());
     return binding.getRoot();
@@ -114,17 +115,21 @@ public class GalleryFragment extends Fragment {
   }
 
   private void updateGallery(Image image) {
-    List<Image> imageList = adapter.getImageList();
-    if (image != null && !imageList.contains(image)) {
-      imageList.add(0, image);
-      adapter.notifyItemInserted(0);
-    }
+//    List<Image> imageList = adapter.getGalleryList();
+//    if (image != null && !imageList.contains(image)) {
+//      imageList.add(0, image);
+//      adapter.notifyItemInserted(0);
+//    }
   }
 
   private void updateGallery(List<Image> imageList) {
-    adapter.getImageList().clear();
-    adapter.getImageList().addAll(imageList);
+//    adapter.getGalleryList().clear();
+//    adapter.getGalleryList().addAll(imageList);
     adapter.notifyDataSetChanged();
   }
 
+  @Override
+  public void onGalleryClick(String galleryId, View view) {
+
+  }
 }
