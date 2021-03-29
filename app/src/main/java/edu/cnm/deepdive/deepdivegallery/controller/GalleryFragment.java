@@ -23,6 +23,7 @@ import edu.cnm.deepdive.deepdivegallery.adapter.GalleryAdapter;
 import edu.cnm.deepdive.deepdivegallery.adapter.GalleryAdapter.OnGalleryClickHelper;
 import edu.cnm.deepdive.deepdivegallery.databinding.FragmentGalleryBinding;
 import edu.cnm.deepdive.deepdivegallery.model.Image;
+import edu.cnm.deepdive.deepdivegallery.viewmodel.GalleryViewModel;
 import edu.cnm.deepdive.deepdivegallery.viewmodel.MainViewModel;
 import java.util.List;
 
@@ -30,7 +31,9 @@ import java.util.List;
 public class GalleryFragment extends Fragment implements OnGalleryClickHelper {
 
   private static final int PICK_IMAGE_REQUEST = 0210;
+
   private FragmentGalleryBinding binding;
+  private GalleryViewModel galleryViewModel;
   private MainViewModel viewModel;
   private GalleryAdapter adapter;
 
@@ -50,9 +53,7 @@ public class GalleryFragment extends Fragment implements OnGalleryClickHelper {
 
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
     boolean handled = true;
-
     //noinspection SwitchStatementWithTooFewBranches
     switch (item.getItemId()) {
       case R.id.action_refresh:
@@ -79,17 +80,6 @@ public class GalleryFragment extends Fragment implements OnGalleryClickHelper {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     binding = FragmentGalleryBinding.inflate(inflater, container, false);
-    Context context = getContext();
-    int span = (int) Math
-        .floor(context
-            .getResources()
-            .getDisplayMetrics()
-            .widthPixels / context
-            .getResources()
-            .getDimension(R.dimen.gallery_item_width));
-    GridLayoutManager layoutManager = new GridLayoutManager(context, span);
-    binding.galleryRecyclerview.setLayoutManager(layoutManager);
-    adapter = new GalleryAdapter(context, galleryList);
     binding.galleryRecyclerview.setAdapter(adapter);
     binding.addImage.setOnClickListener((c) -> pickImage());
     return binding.getRoot();
@@ -101,8 +91,19 @@ public class GalleryFragment extends Fragment implements OnGalleryClickHelper {
     super.onViewCreated(view, savedInstanceState);
     //noinspection ConstantConditions
     viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
-    viewModel.getImage().observe(getViewLifecycleOwner(), this::updateGallery);
-    viewModel.getImageList().observe(getViewLifecycleOwner(), this::updateGallery);
+    galleryViewModel = new ViewModelProvider(getActivity()).get(GalleryViewModel.class);
+    galleryViewModel
+        .getGalleryList()
+        .observe(getViewLifecycleOwner(), (galleryList) -> {
+          if (galleryList != null) {
+            binding
+                .galleryRecyclerview
+                .setAdapter(new GalleryAdapter(
+                    getContext(),
+                    galleryList,
+                    this::onGalleryClick));
+          }
+        });
   }
 
   private void pickImage() {
