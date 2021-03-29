@@ -33,7 +33,7 @@ public class Image {
   @Expose
   private User contributor;
 
-//  @Expose
+
 //  private Gallery gallery;
 
 
