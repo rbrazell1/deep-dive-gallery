@@ -22,4 +22,6 @@
   <string name="description_of_image_hint">Description of Image</string>
   <string name="action_refresh">Refresh</string>
   <string name="gallery_title">Title</string>
+  <string name="image_description">Image Description</string>
+  <string name="image_title">Image Title</string>
 </resources>

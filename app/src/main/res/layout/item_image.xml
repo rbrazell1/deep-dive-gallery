@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:padding="@dimen/half_static_spacing"
+  android:orientation="vertical">
+
+  <ImageView
+    android:id="@+id/image_in_gallery"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scaleType="centerInside"
+    android:adjustViewBounds="true"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toStartOf="@id/image_title"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+  <TextView
+    android:id="@+id/image_title"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:text="@string/image_title"
+    app:layout_constraintHorizontal_weight="3"
+    app:layout_constraintStart_toEndOf="@id/image_in_gallery"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_margin="@dimen/half_static_spacing"/>
+
+  <TextView
+    android:id="@+id/image_description"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:text="@string/image_description"
+    app:layout_constraintStart_toStartOf="@+id/image_title"
+    app:layout_constraintTop_toBottomOf="@+id/image_title"
+    app:layout_constraintEnd_toEndOf="@+id/image_title"
+    android:gravity="start"
+    android:layout_margin="@dimen/half_static_spacing"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
