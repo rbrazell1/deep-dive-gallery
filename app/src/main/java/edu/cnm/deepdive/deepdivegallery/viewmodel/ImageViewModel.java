@@ -18,7 +18,7 @@ import edu.cnm.deepdive.deepdivegallery.service.UserRepository;
 import io.reactivex.disposables.CompositeDisposable;
 import java.util.List;
 
-public class MainViewModel extends AndroidViewModel implements LifecycleObserver {
+public class ImageViewModel extends AndroidViewModel implements LifecycleObserver {
 
   private final UserRepository userRepository;
   private final MutableLiveData<GoogleSignInAccount> account;
@@ -29,7 +29,7 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
   private final CompositeDisposable pending;
   private final ImageRepository imageRepository;
 
-  public MainViewModel(
+  public ImageViewModel(
       @NonNull Application application) {
     super(application);
     userRepository = new UserRepository(application);

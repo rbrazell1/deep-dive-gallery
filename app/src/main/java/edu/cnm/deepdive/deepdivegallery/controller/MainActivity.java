@@ -11,11 +11,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import edu.cnm.deepdive.deepdivegallery.R;
 import edu.cnm.deepdive.deepdivegallery.service.GoogleSignInService;
-import edu.cnm.deepdive.deepdivegallery.viewmodel.MainViewModel;
+import edu.cnm.deepdive.deepdivegallery.viewmodel.ImageViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
-  private MainViewModel viewModel;
+  private ImageViewModel viewModel;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void setViewModel() {
-    viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+    viewModel = new ViewModelProvider(this).get(ImageViewModel.class);
     getLifecycle().addObserver(viewModel);
     viewModel.getThrowable().observe(this, (throwable) -> {
       if (throwable != null) {
