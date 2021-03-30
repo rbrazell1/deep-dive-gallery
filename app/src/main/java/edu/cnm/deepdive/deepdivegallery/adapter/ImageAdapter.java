@@ -24,7 +24,6 @@ public class ImageAdapter extends RecyclerView.Adapter<Holder> {
 
   public ImageAdapter(Context context,
       List<Image> imageList,
-      OnClickListener onClickListener,
       OnImageClickHelper onImageClickHelper) {
     this.context = context;
     this.imageList = imageList;
@@ -33,7 +32,6 @@ public class ImageAdapter extends RecyclerView.Adapter<Holder> {
   }
 
   @NonNull
-  @NotNull
   @Override
   public ImageAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent,
       int viewType) {
@@ -50,6 +48,7 @@ public class ImageAdapter extends RecyclerView.Adapter<Holder> {
   public int getItemCount() {
     return imageList.size();
   }
+
 
 
   public class Holder extends RecyclerView.ViewHolder implements OnClickListener {
@@ -75,7 +74,7 @@ public class ImageAdapter extends RecyclerView.Adapter<Holder> {
 
     @Override
     public void onClick(View view) {
-      onImageClickHelper.onImageClick(imageList.get(getAdapterPosition()), getAdapterPosition() );
+      onImageClickHelper.onImageClick(imageList.get(getAdapterPosition()), getAdapterPosition());
     }
   }
 

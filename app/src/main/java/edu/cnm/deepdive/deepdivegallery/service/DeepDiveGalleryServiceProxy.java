@@ -41,20 +41,27 @@ public interface DeepDiveGalleryServiceProxy {
       @Part("title") RequestBody title);
 
   @Multipart
-  @POST("images")
-  Single<Image> post(@Header("Authorization") String bearerToken,
+  @POST("images/{id}")
+  Single<Image> post(
+      @Path("id") UUID id,
+      @Header("Authorization") String bearerToken,
       @Part MultipartBody.Part file,
       @Part("title") RequestBody title,
       @Part("description") RequestBody description);
 
-  @GET("images")
-  Single<List<Image>> getAllImages(@Header("Authorization") String bearerToken);
+  @GET("images/{id}")
+  Single<List<Image>> getAllImages(
+      @Path("id") UUID id,
+      @Header("Authorization") String bearerToken);
 
   @GET("galleries/{id}")
-  Single<Gallery> getGallery(@Path ("id") UUID id,@Header("Authorization") String bearerToken);
+  Single<Gallery> getGallery(
+      @Path ("id") UUID id,
+      @Header("Authorization") String bearerToken);
 
   @GET("galleries")
-  Single<List<Gallery>> getGalleryList(@Header("Authorization") String bearerToken);
+  Single<List<Gallery>> getGalleryList(
+      @Header("Authorization") String bearerToken);
 
   class InstanceHolder {
 
