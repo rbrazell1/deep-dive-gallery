@@ -18,14 +18,20 @@ import androidx.lifecycle.ViewModelProvider;
 import com.squareup.picasso.Picasso;
 import edu.cnm.deepdive.deepdivegallery.R;
 import edu.cnm.deepdive.deepdivegallery.databinding.FragmentUploadPropertiesBinding;
+import edu.cnm.deepdive.deepdivegallery.model.Gallery;
+import edu.cnm.deepdive.deepdivegallery.viewmodel.GalleryViewModel;
 import edu.cnm.deepdive.deepdivegallery.viewmodel.ImageViewModel;
+import java.util.List;
+import java.util.UUID;
 
 public class UploadPropertiesFragment extends DialogFragment implements TextWatcher {
 
   private FragmentUploadPropertiesBinding binding;
   private Uri uri;
   private AlertDialog dialog;
-  private ImageViewModel viewModel;
+  private ImageViewModel imageViewModel;
+  private GalleryViewModel galleryViewModel;
+  private List<Gallery> galleryList;
 
 
   @Override
@@ -66,8 +72,13 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
         .get()
         .load(uri)
         .into(binding.image);
-    binding.galleryTitle.addTextChangedListener(this);
-    viewModel = new ViewModelProvider(getActivity()).get(ImageViewModel.class);
+    binding.imageTitle.addTextChangedListener(this);
+    binding.galleryTitleDescription.addTextChangedListener(this);
+    imageViewModel = new ViewModelProvider(getActivity()).get(ImageViewModel.class);
+    galleryViewModel
+        .getGalleryList()
+        .observe(getViewLifecycleOwner(),
+            (galleries) -> this.galleryList = galleries);
   }
 
   @Override
@@ -88,12 +99,20 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
 
   private void checkSubmitConditions() {
     Button posititve = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-    posititve.setEnabled(!binding.galleryTitle.getText().toString().trim().isEmpty());
+    posititve.setEnabled(!binding.imageTitle.getText().toString().trim().isEmpty());
   }
 
   private void upload() {
-    String title = binding.galleryTitle.getText().toString().trim();
+    String title = binding.imageTitle.getText().toString().trim();
     String description = binding.galleryDescription.getText().toString().trim();
-    viewModel.store(uri,title, (description.isEmpty() ? null : description));
+    String galleryTitle = binding.galleryTitleDescription.getText().toString().trim();
+    String titleId = "";
+    for (Gallery g : galleryList) {
+      if (g != null && galleryTitle.equals(g.getTitle())) {
+        titleId = g.getId().toString();
+      }
+    }
+    UUID id = UUID.fromString(titleId);
+    imageViewModel.store(id,uri,title, (description.isEmpty() ? null : description));
   }
 }

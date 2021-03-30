@@ -20,13 +20,13 @@
     android:src="@mipmap/ic_gallery_foreground"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintEnd_toStartOf="@id/gallery_title"
+    app:layout_constraintEnd_toStartOf="@id/image_title"
     android:adjustViewBounds="true"
     tools:ignore="contentDescription"
     />
 
   <TextView
-    android:id="@+id/gallery_title"
+    android:id="@+id/image_title"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/static_spacing"
@@ -43,9 +43,9 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/static_spacing"
-    app:layout_constraintStart_toStartOf="@id/gallery_title"
-    app:layout_constraintTop_toBottomOf="@id/gallery_title"
-    app:layout_constraintEnd_toEndOf="@id/gallery_title"
+    app:layout_constraintStart_toStartOf="@id/image_title"
+    app:layout_constraintTop_toBottomOf="@id/image_title"
+    app:layout_constraintEnd_toEndOf="@id/image_title"
     style="@style/DescriptionText"
     />
 

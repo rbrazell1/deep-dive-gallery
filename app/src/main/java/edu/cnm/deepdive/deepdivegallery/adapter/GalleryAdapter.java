@@ -60,7 +60,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<Holder> {
 
     private void bind(int position) {
       gallery = galleryList.get(position);
-      binding.galleryTitle.setText(gallery.getTitle());
+      binding.imageTitle.setText(gallery.getTitle());
       binding.galleryDescription.setText(gallery.getDescription());
       binding.getRoot().setOnClickListener(this);
     }

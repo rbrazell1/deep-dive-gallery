@@ -60,9 +60,9 @@ public class ImageRepository {
             RequestBody titlePart = RequestBody.create(title, multipartFormType);
             if (description != null) {
               RequestBody descriptionPart = RequestBody.create(description, multipartFormType);
-              return serviceProxy.post(token, filePart, titlePart, descriptionPart);
+              return serviceProxy.post(id,token, filePart, titlePart, descriptionPart);
             } else {
-              return serviceProxy.post(token, filePart, titlePart);
+              return serviceProxy.post(id,token, filePart, titlePart);
             }
           }
         })
