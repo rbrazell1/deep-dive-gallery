@@ -4,14 +4,14 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:padding="@dimen/half_static_spacing"
+  android:padding="@dimen/static_spacing"
   android:orientation="vertical">
 
   <ImageView
     android:id="@+id/image_in_gallery"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:scaleType="centerInside"
+    android:scaleType="fitCenter"
     android:adjustViewBounds="true"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toStartOf="@id/image_title"
@@ -22,10 +22,11 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:text="@string/image_title"
-    app:layout_constraintHorizontal_weight="3"
     app:layout_constraintStart_toEndOf="@id/image_in_gallery"
     app:layout_constraintTop_toTopOf="parent"
-    android:layout_margin="@dimen/half_static_spacing"/>
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_margin="@dimen/half_static_spacing"
+    style="@style/TitleText"/>
 
   <TextView
     android:id="@+id/image_description"
@@ -36,7 +37,8 @@
     app:layout_constraintTop_toBottomOf="@+id/image_title"
     app:layout_constraintEnd_toEndOf="@+id/image_title"
     android:gravity="start"
-    android:layout_margin="@dimen/half_static_spacing"/>
+    android:layout_margin="@dimen/half_static_spacing"
+    style="@style/DescriptionText"/>
 
 
 

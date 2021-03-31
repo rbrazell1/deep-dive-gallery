@@ -42,8 +42,11 @@ public class ImageFragment extends Fragment implements OnImageClickHelper {
     }
     galleryViewModel.getGallery(galleryId);
     galleryViewModel.getGallery().observe(getViewLifecycleOwner(), (gallery) -> {
-      if (gallery != null) {
-        binding.imageRecyclerView.setAdapter(new ImageAdapter(getContext(), gallery.getImageList(), this));
+      if (gallery.getImageList() != null) {
+        binding.imageRecyclerView.setAdapter(new ImageAdapter(
+            getContext(),
+            gallery.getImageList(),
+            this));
       }
     });
   }

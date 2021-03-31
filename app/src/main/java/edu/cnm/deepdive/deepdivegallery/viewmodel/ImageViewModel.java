@@ -41,7 +41,6 @@ public class ImageViewModel extends AndroidViewModel implements LifecycleObserve
     imageList = new MutableLiveData<>();
     pending = new CompositeDisposable();
     imageRepository = new ImageRepository(application);
-    loadImageList();
   }
 
   public LiveData<User> getUser() {
