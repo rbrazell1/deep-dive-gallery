@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.deepdivegallery.model;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +33,7 @@ public class Gallery implements Serializable {
   private User contributor;
 
   @Expose
+  @SerializedName("images")
   private List<Image> imageList;
 
   public UUID getId() {
