@@ -1,11 +1,13 @@
 package edu.cnm.deepdive.deepdivegallery.model;
 
+import androidx.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import org.jetbrains.annotations.NotNull;
 
 public class Gallery implements Serializable {
 
@@ -98,5 +100,11 @@ public class Gallery implements Serializable {
 
   public void setImageList(List<Image> imageList) {
     this.imageList = imageList;
+  }
+
+  @NonNull
+  @Override
+  public String toString() {
+    return title;
   }
 }

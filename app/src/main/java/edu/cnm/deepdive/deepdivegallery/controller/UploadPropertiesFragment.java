@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.deepdivegallery.controller;
 
 import android.app.Dialog;
+import android.content.res.AssetFileDescriptor.AutoCloseOutputStream;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,6 +9,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,18 +45,22 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
 
   @NonNull
   @Override
-  public Dialog onCreateDialog(
-      @Nullable Bundle savedInstanceState) {
+  public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
     binding = FragmentUploadPropertiesBinding.inflate(
         LayoutInflater.from(getContext()), null, false);
     dialog = new Builder(getContext())
         .setIcon(R.drawable.ic_upload_24)
         .setTitle(R.string.create_dialog_title)
         .setView(binding.getRoot())
-        .setNeutralButton(android.R.string.cancel, (dlg, which) -> {/* Does Nothing, no need */})
+        .setNeutralButton(android.R.string.cancel,
+            (dlg, which) -> {/* Does Nothing, but the dialog popup goes away */})
         .setPositiveButton(android.R.string.ok, (dlg, which) -> upload())
         .create();
-    dialog.setOnShowListener((dlg) -> checkSubmitConditions());
+    dialog.setOnShowListener((dlg) -> {
+      binding.galleryDescription.addTextChangedListener(this);
+      binding.imageTitle.addTextChangedListener(this);
+      checkSubmitConditions();
+    });
     return dialog;
   }
 
@@ -72,15 +79,19 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
         .get()
         .load(uri)
         .into(binding.image);
-    binding.imageTitle.addTextChangedListener(this);
-    binding.galleryTitleDescription.addTextChangedListener(this);
-    binding.galleryDescription.addTextChangedListener(this);
     imageViewModel = new ViewModelProvider(getActivity()).get(ImageViewModel.class);
     galleryViewModel = new ViewModelProvider(getActivity()).get(GalleryViewModel.class);
     galleryViewModel
         .getGalleryList()
         .observe(getViewLifecycleOwner(),
-            (galleries) -> this.galleryList = galleries);
+            (galleryList) -> {
+              this.galleryList = galleryList;
+              AutoCompleteTextView simpleAutoText = binding.galleryTitleDescription;
+              ArrayAdapter<Gallery> adapter = new ArrayAdapter<>(
+                  getContext(), android.R.layout.simple_list_item_1, galleryList);
+              simpleAutoText.setThreshold(1);
+              simpleAutoText.setAdapter(adapter);
+            });
   }
 
   @Override
@@ -100,8 +111,8 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
   }
 
   private void checkSubmitConditions() {
-    Button posititve = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-    posititve.setEnabled(!binding.imageTitle.getText().toString().trim().isEmpty());
+    Button positive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+    positive.setEnabled(!binding.imageTitle.getText().toString().trim().isEmpty());
   }
 
   private void upload() {
@@ -115,6 +126,6 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
       }
     }
     UUID id = UUID.fromString(titleId);
-    imageViewModel.store(id,uri,title, (description.isEmpty() ? null : description));
+    imageViewModel.store(id, uri, title, (description.isEmpty() ? null : description));
   }
 }

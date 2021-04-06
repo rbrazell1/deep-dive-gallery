@@ -35,7 +35,7 @@ public interface DeepDiveGalleryServiceProxy {
       String bearerToken);
 
   @Multipart
-  @POST("images/{id}")
+  @POST("galleries/{id}/images")
   Single<Image> post(
       @Path("id") UUID id,
       @Header("Authorization") String bearerToken,
@@ -43,7 +43,7 @@ public interface DeepDiveGalleryServiceProxy {
       @Part("title") RequestBody title);
 
   @Multipart
-  @POST("images/{id}")
+  @POST("galleries/{id}/images")
   Single<Image> post(
       @Path("id") UUID id,
       @Header("Authorization") String bearerToken,
