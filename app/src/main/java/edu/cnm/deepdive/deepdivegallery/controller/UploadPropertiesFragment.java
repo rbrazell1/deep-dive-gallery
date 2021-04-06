@@ -120,12 +120,12 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
     String description = binding.galleryDescription.getText().toString().trim();
     String galleryTitle = binding.galleryTitleDescription.getText().toString().trim();
     String titleId = "";
+    UUID galleryId = null;
     for (Gallery g : galleryList) {
       if (g != null && galleryTitle.equals(g.getTitle())) {
-        titleId = g.getId().toString();
+       galleryId = g.getId();
       }
     }
-    UUID id = UUID.fromString(titleId);
-    imageViewModel.store(id, uri, title, (description.isEmpty() ? null : description));
+    imageViewModel.store(galleryId, uri, title, (description.isEmpty() ? null : description));
   }
 }
