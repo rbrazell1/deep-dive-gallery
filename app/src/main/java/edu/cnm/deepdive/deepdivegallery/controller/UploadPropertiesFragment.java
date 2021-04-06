@@ -126,6 +126,7 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
        galleryId = g.getId();
       }
     }
-    imageViewModel.store(galleryId, uri, title, (description.isEmpty() ? null : description));
+    imageViewModel.store(galleryId, uri, title,
+        (description.isEmpty() ? null : description));
   }
 }

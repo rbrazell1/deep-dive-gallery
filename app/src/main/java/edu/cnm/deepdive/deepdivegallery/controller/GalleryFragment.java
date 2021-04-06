@@ -32,7 +32,7 @@ public class GalleryFragment extends Fragment implements OnGalleryClickHelper {
 
   private FragmentGalleryBinding binding;
   private GalleryViewModel galleryViewModel;
-  private ImageViewModel viewModel;
+  private ImageViewModel imageViewModel;
   private GalleryAdapter adapter;
 
 
@@ -55,7 +55,7 @@ public class GalleryFragment extends Fragment implements OnGalleryClickHelper {
     //noinspection SwitchStatementWithTooFewBranches
     switch (item.getItemId()) {
       case R.id.action_refresh:
-        viewModel.loadImageList();
+        imageViewModel.loadImageList();
         break;
       default:
         handled = super.onOptionsItemSelected(item);
@@ -88,7 +88,7 @@ public class GalleryFragment extends Fragment implements OnGalleryClickHelper {
       @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     //noinspection ConstantConditions
-    viewModel = new ViewModelProvider(getActivity()).get(ImageViewModel.class);
+    imageViewModel = new ViewModelProvider(getActivity()).get(ImageViewModel.class);
     galleryViewModel = new ViewModelProvider(getActivity()).get(GalleryViewModel.class);
     galleryViewModel
         .getGalleryList()
