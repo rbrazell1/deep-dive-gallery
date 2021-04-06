@@ -53,6 +53,7 @@ public class ImageFragment extends Fragment implements OnImageClickHelper {
 
   @Override
   public void onImageClick(Image image, int position) {
-
+    ImageDialogFragment fragment = ImageDialogFragment.newInstance(image);
+    fragment.show(getChildFragmentManager(), fragment.getClass().getName());
   }
 }

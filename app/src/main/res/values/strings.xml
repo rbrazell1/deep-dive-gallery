@@ -25,4 +25,10 @@
   <string name="image_description">Image Description</string>
   <string name="image_title">Image Title</string>
   <string name="gallery_hint">Gallery</string>
+  <string name="image_description_text">Image Description</string>
+  <string name="image_id">Image ID</string>
+  <string name="file_type">File Type</string>
+  <string name="date_created">Date Created</string>
+  <string name="file_url">File URL</string>
+  <string name="gallery_image">Gallery Image</string>
 </resources>

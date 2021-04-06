@@ -22,9 +22,7 @@ public class ImageAdapter extends RecyclerView.Adapter<Holder> {
   private final LayoutInflater layoutInflater;
   private final OnImageClickHelper onImageClickHelper;
 
-  public ImageAdapter(Context context,
-      List<Image> imageList,
-      OnImageClickHelper onImageClickHelper) {
+  public ImageAdapter(Context context, List<Image> imageList, OnImageClickHelper onImageClickHelper) {
     this.context = context;
     this.imageList = imageList;
     layoutInflater = LayoutInflater.from(context);
@@ -70,6 +68,8 @@ public class ImageAdapter extends RecyclerView.Adapter<Holder> {
         Picasso.get().load(String.format(BuildConfig.CONTENT_FORMAT, image.getHref()))
             .into(binding.imageInGallery);
       }
+      binding.imageTitle.setText(image.getTitle());
+      binding.imageDescription.setText(image.getDescription());
     }
 
     @Override

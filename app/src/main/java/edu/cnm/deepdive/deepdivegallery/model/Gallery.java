@@ -38,6 +38,8 @@ public class Gallery implements Serializable {
   @SerializedName("images")
   private List<Image> imageList;
 
+  // Getters and Setters
+
   public UUID getId() {
     return id;
   }
