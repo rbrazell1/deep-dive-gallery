@@ -13,7 +13,6 @@ import edu.cnm.deepdive.deepdivegallery.adapter.ImageAdapter.Holder;
 import edu.cnm.deepdive.deepdivegallery.databinding.ItemImageBinding;
 import edu.cnm.deepdive.deepdivegallery.model.Image;
 import java.util.List;
-import org.jetbrains.annotations.NotNull;
 
 public class ImageAdapter extends RecyclerView.Adapter<Holder> {
 
@@ -22,7 +21,8 @@ public class ImageAdapter extends RecyclerView.Adapter<Holder> {
   private final LayoutInflater layoutInflater;
   private final OnImageClickHelper onImageClickHelper;
 
-  public ImageAdapter(Context context, List<Image> imageList, OnImageClickHelper onImageClickHelper) {
+  public ImageAdapter(Context context, List<Image> imageList,
+      OnImageClickHelper onImageClickHelper) {
     this.context = context;
     this.imageList = imageList;
     layoutInflater = LayoutInflater.from(context);
@@ -46,7 +46,6 @@ public class ImageAdapter extends RecyclerView.Adapter<Holder> {
   public int getItemCount() {
     return imageList.size();
   }
-
 
 
   public class Holder extends RecyclerView.ViewHolder implements OnClickListener {
@@ -79,7 +78,8 @@ public class ImageAdapter extends RecyclerView.Adapter<Holder> {
   }
 
   public interface OnImageClickHelper {
-    void onImageClick (Image image, int position);
+
+    void onImageClick(Image image, int position);
   }
 
 }

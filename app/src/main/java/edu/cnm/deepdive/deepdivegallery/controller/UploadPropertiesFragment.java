@@ -1,7 +1,6 @@
 package edu.cnm.deepdive.deepdivegallery.controller;
 
 import android.app.Dialog;
-import android.content.res.AssetFileDescriptor.AutoCloseOutputStream;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -123,7 +122,7 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
     UUID galleryId = null;
     for (Gallery g : galleryList) {
       if (g != null && galleryTitle.equals(g.getTitle())) {
-       galleryId = g.getId();
+        galleryId = g.getId();
       }
     }
     imageViewModel.store(galleryId, uri, title,
