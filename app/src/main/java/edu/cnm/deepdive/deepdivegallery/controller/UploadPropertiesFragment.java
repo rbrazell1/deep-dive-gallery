@@ -39,7 +39,8 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    uri = UploadPropertiesFragmentArgs.fromBundle(getArguments()).getContentUri();
+    uri = UploadPropertiesFragmentArgs.fromBundle(getArguments())
+                                      .getContentUri();
   }
 
   @NonNull
@@ -111,13 +112,22 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
 
   private void checkSubmitConditions() {
     Button positive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-    positive.setEnabled(!binding.imageTitle.getText().toString().trim().isEmpty());
+    positive.setEnabled(!binding.imageTitle.getText()
+                                           .toString()
+                                           .trim()
+                                           .isEmpty());
   }
 
   private void upload() {
-    String title = binding.imageTitle.getText().toString().trim();
-    String description = binding.galleryDescription.getText().toString().trim();
-    String galleryTitle = binding.galleryTitleDescription.getText().toString().trim();
+    String title = binding.imageTitle.getText()
+                                     .toString()
+                                     .trim();
+    String description = binding.galleryDescription.getText()
+                                                   .toString()
+                                                   .trim();
+    String galleryTitle = binding.galleryTitleDescription.getText()
+                                                         .toString()
+                                                         .trim();
     String titleId = "";
     UUID galleryId = null;
     for (Gallery g : galleryList) {
