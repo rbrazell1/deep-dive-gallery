@@ -41,7 +41,7 @@ public class ImageDialogFragment extends DialogFragment {
     FragmentImageDialogBinding binding = FragmentImageDialogBinding.inflate(
         LayoutInflater.from(getContext()));
 
-    if(image.getHref()!=null) {
+    if (image.getHref() != null) {
       Picasso
           .get()
           .load(String
@@ -62,12 +62,12 @@ public class ImageDialogFragment extends DialogFragment {
 
     return new AlertDialog.Builder(getContext())
         .setTitle((image.getTitle() != null) ? image.getTitle() : "Untitled")
+        .setView(binding.getRoot())
         .setPositiveButton("Close", (dlg, which) -> {
 
         })
         .create();
   }
-
 
 
   @Override

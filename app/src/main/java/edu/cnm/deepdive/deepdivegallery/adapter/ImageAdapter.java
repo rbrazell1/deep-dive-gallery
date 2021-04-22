@@ -64,7 +64,9 @@ public class ImageAdapter extends RecyclerView.Adapter<Holder> {
     private void bind(int position) {
       image = imageList.get(position);
       if (image.getHref() != null) {
-        Picasso.get().load(String.format(BuildConfig.CONTENT_FORMAT, image.getHref()))
+        Picasso
+            .get()
+            .load(String.format(BuildConfig.CONTENT_FORMAT, image.getHref()))
             .into(binding.imageInGallery);
       }
       binding.imageTitle.setText(image.getTitle());

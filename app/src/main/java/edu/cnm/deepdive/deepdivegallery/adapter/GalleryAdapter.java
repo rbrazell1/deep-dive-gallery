@@ -45,6 +45,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<Holder> {
     return galleryList.size();
   }
 
+  public interface OnGalleryClickHelper {
+
+    void onGalleryClick(String galleryId, View view);
+  }
+
   class Holder extends RecyclerView.ViewHolder implements OnClickListener {
 
     private final ItemGalleryBinding binding;
@@ -55,26 +60,26 @@ public class GalleryAdapter extends RecyclerView.Adapter<Holder> {
       super(binding.getRoot());
       this.binding = binding;
       this.onGalleryClickHelper = onGalleryClickHelper;
-      binding.getRoot().setOnClickListener((OnClickListener) this);
+      binding.getRoot()
+             .setOnClickListener((OnClickListener) this);
     }
 
     private void bind(int position) {
       gallery = galleryList.get(position);
       binding.imageTitle.setText(gallery.getTitle());
       binding.galleryDescription.setText(gallery.getDescription());
-      binding.getRoot().setOnClickListener(this);
+      binding.getRoot()
+             .setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View view) {
       onGalleryClickHelper
-          .onGalleryClick(galleryList.get(getAdapterPosition()).getId().toString(), view);
+          .onGalleryClick(galleryList.get(getAdapterPosition())
+                                     .getId()
+                                     .toString(), view);
     }
-  }
-
-  public interface OnGalleryClickHelper {
-    void onGalleryClick(String galleryId, View view);
   }
 
 }
