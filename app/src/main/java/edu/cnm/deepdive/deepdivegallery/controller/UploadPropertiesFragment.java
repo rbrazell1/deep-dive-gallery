@@ -107,7 +107,6 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
   @Override
   public void afterTextChanged(Editable s) {
     checkSubmitConditions();
-
   }
 
   private void checkSubmitConditions() {
